@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<me>
+    <name>Mathias</name>
+    <age>26</name>
+    <hobbies>
+        <hobby>eating</hobby>
+        <hobby>football</hobby>
+    </hobbies>
+</me>
+
+<!--
+rigtig meget boilerplate, kan ikke parse linje for linje - start ved me slutter ved me
+udfording ved meget store filer
+-->
