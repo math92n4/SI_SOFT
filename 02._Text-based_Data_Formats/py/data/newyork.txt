@@ -1,0 +1,3 @@
+city: New York
+characteristic: Statue of Liberty
+popularFoods: Bagels, Pizza, Pretzels

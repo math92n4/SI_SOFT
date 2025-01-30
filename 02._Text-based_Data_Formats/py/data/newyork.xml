@@ -1,0 +1,9 @@
+<data>
+  <city>New York</city>
+  <characteristic>Statue of Liberty</characteristic>
+  <popularFoods>
+    <food>Bagels</food>
+    <food>Pizza</food>
+    <food>Pretzels</food>
+  </popularFoods>
+</data>
