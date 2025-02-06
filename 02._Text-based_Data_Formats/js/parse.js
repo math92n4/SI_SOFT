@@ -2,28 +2,32 @@ import fs from 'fs'
 const { promises: fsPromises } = fs
 import csv from 'csv-parser'
 import { parseStringPromise } from "xml2js";
+import { fileURLToPath } from 'url';
+import path from 'path'
 import YAML from 'yaml'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // JSON
 
-async function getJson() {
-    const res = await fsPromises.readFile('./data/me.json', 'utf-8'); 
+export async function getJson() {
+    const filePath = path.join(__dirname, 'data', 'me.json')
+    const res = await fsPromises.readFile(filePath, 'utf-8'); 
     const data = JSON.parse(res);
     return { name: data.name, age: data.age, hobbies: data.hobbies }
 }
 
-
-const jsonPerson = await getJson();
-console.log(jsonPerson, 'JSON')
-
 // CSV
 // https://www.npmjs.com/package/csv-parser
 
-async function getCsv() {
+export async function getCsv() {
+    const filePath = path.join(__dirname, 'data', 'me.csv')
+
     return new Promise((resolve, reject) => {
       const results = [];
   
-      fs.createReadStream('./data/me.csv')
+      fs.createReadStream(filePath)
         .pipe(csv())
         .on('data', (data) => {
           data.hobbies = data.hobbies.split(';');
@@ -37,26 +41,21 @@ async function getCsv() {
     });
   }
 
-
-const csvPerson = await getCsv()
-console.log(csvPerson, 'CSV')
-
 // XML
 
-async function getXml() {
-    const res = await fs.promises.readFile('./data/me.xml', 'utf-8')
+export async function getXml() {
+    const filePath = path.join(__dirname, 'data', 'me.xml')
+    const res = await fs.promises.readFile(filePath, 'utf-8')
     const data = await parseStringPromise(res, { explicitArray: false })
     const person = data.me;
     return { name: person.name, age: parseInt(person.age), hobbies: person.hobbies.hobby }
 }
 
-const xmlPerson = await getXml()
-console.log(xmlPerson, 'XML')
-
 // TXT
 
-async function getTxt() {
-    const res = await fs.promises.readFile('./data/me.txt', 'utf-8')
+export async function getTxt() {
+    const filePath = path.join(__dirname, 'data', 'me.txt')
+    const res = await fs.promises.readFile(filePath, 'utf-8')
     const lines = res.split('\n')
     const person = {}
 
@@ -78,16 +77,12 @@ async function getTxt() {
     return person
 }
 
-const txtPerson = await getTxt()
-console.log(txtPerson, 'TXT')
 
 // YAML
 // https://www.npmjs.com/package/yaml
 
-function getYaml() {
-    const file = fs.readFileSync('./data/me.yaml', 'utf-8')
+export function getYaml() {
+    const filePath = path.join(__dirname, 'data', 'me.yaml')
+    const file = fs.readFileSync(filePath, 'utf-8')
     return YAML.parse(file)
 }
-
-const yamlPerson = getYaml()
-console.log(yamlPerson, 'YAML')
