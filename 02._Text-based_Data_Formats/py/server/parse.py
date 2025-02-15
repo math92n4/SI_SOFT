@@ -9,9 +9,12 @@ class City:
 
 # JSON
 import json
+import os
+
+base_path = os.path.dirname(__file__)
 
 def getJson():
-    with open('./data/newyork.json') as f:
+    with open('../data/newyork.json') as f:
         data = json.load(f)
     
     city = City(data['city'], data['characteristic'], data['popularFoods'])
@@ -27,7 +30,7 @@ import csv
 
 def getCsv():
 
-    with open('./data/newyork.csv') as csv_file:
+    with open('../data/newyork.csv') as csv_file:
         reader = csv.reader(csv_file)
 
         next(reader)
@@ -48,7 +51,7 @@ import xml.etree.ElementTree as ET
 
 def getXml():
 
-    tree = ET.parse('./data/newyork.xml')
+    tree = ET.parse('../data/newyork.xml')
     root = tree.getroot()
     
     city = root.find('city').text
@@ -66,7 +69,7 @@ print(xmlCity, "XML")
 # TXT
 def getTxt():
     
-    file = open('./data/newyork.txt')
+    file = open('../data/newyork.txt')
     lines = file.readlines()
 
     data = {}
@@ -91,7 +94,7 @@ import yaml
 
 def getYaml():
 
-    with open('./data/newyork.yaml') as f:
+    with open('../data/newyork.yaml') as f:
         data = yaml.safe_load(f)
         city = City(data.get('city'), data.get('characteristic'), data.get('popularFoods', []))
         
