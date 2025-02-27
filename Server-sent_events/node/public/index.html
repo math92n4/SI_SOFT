@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE</title>
+</head>
+<body>
+
+    <h1>Server-sent events (SSE)</h1>
+
+    <p>Status</p>
+    <div id="status"></div>
+
+    <p>Time</p>
+    <div id="time"></div>
+    
+    <script>
+
+/*
+        const statusDiv = document.getElementById("status");
+        const timeDiv = document.getElementById("time");
+
+        const eventSource = new EventSource("/synchronizetime");
+
+        eventSource.addEventListener("message", (event) => {
+            timeDiv.textContent = event.data
+        });
+
+        eventSource.addEventListener("open", (event) => {
+            statusDiv.textContent = "Connected";
+        })
+
+        eventSource.addEventListener("error", (event) => {
+            if (event.target.readyState === EventSource.CLOSED) {
+                statusDiv.textContent = 'Connection was closed';
+            } else if (event.target.readyState === EventSource.CONNECTING) {
+                statusDiv.textContent = 'Connecting...';
+            } else {
+                statusDiv.textContent = 'Error';
+            }
+        });
+*/
+    </script>
+</body>
+</html>
