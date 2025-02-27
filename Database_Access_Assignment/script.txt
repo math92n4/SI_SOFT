@@ -1,7 +1,5 @@
-// Use the company database
 use company;
 
-// Insert countries
 db.countries.insertMany([
     { name: "Denmark" },
     { name: "Sweden" },
@@ -9,14 +7,12 @@ db.countries.insertMany([
     { name: "France" }
 ]);
 
-// Insert departments
 db.departments.insertMany([
     { name: "Finance" },
     { name: "Engineering" },
     { name: "Marketing" }
 ]);
 
-// Insert positions
 db.positions.insertMany([
     { name: "Software Engineer" },
     { name: "Financial Analyst" },
@@ -24,7 +20,6 @@ db.positions.insertMany([
     { name: "Salary Manager" }
 ]);
 
-// Insert cities with country_id references using findOne
 db.cities.insertOne({ name: "Copenhagen", country_id: db.countries.findOne({ name: "Denmark" })._id });
 db.cities.insertOne({ name: "Aalborg", country_id: db.countries.findOne({ name: "Denmark" })._id });
 db.cities.insertOne({ name: "Odense", country_id: db.countries.findOne({ name: "Denmark" })._id });
@@ -39,7 +34,6 @@ db.cities.insertOne({ name: "Frankfurt", country_id: db.countries.findOne({ name
 db.cities.insertOne({ name: "Paris", country_id: db.countries.findOne({ name: "France" })._id });
 db.cities.insertOne({ name: "Marseille", country_id: db.countries.findOne({ name: "France" })._id });
 
-// Insert employees with foreign keys using findOne
 db.employees.insertOne({ name: "Alice Johnson", salary: 75000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id });
 db.employees.insertOne({ name: "Bob Smith", salary: 60000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id });
 db.employees.insertOne({ name: "Charlie Brown", salary: 70000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id });
