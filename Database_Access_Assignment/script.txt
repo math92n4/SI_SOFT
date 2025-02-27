@@ -25,32 +25,28 @@ db.positions.insertMany([
 ]);
 
 // Insert cities with country_id references using findOne
-db.cities.insertMany([
-    { name: "Copenhagen", country_id: db.countries.findOne({ name: "Denmark" })._id },
-    { name: "Aalborg", country_id: db.countries.findOne({ name: "Denmark" })._id },
-    { name: "Odense", country_id: db.countries.findOne({ name: "Denmark" })._id },
-    
-    { name: "Stockholm", country_id: db.countries.findOne({ name: "Sweden" })._id },
-    { name: "Helsingborg", country_id: db.countries.findOne({ name: "Sweden" })._id },
-    { name: "Uppsala", country_id: db.countries.findOne({ name: "Sweden" })._id },
+db.cities.insertOne({ name: "Copenhagen", country_id: db.countries.findOne({ name: "Denmark" })._id });
+db.cities.insertOne({ name: "Aalborg", country_id: db.countries.findOne({ name: "Denmark" })._id });
+db.cities.insertOne({ name: "Odense", country_id: db.countries.findOne({ name: "Denmark" })._id });
 
-    { name: "Berlin", country_id: db.countries.findOne({ name: "Germany" })._id },
-    { name: "Frankfurt", country_id: db.countries.findOne({ name: "Germany" })._id },
-    
-    { name: "Paris", country_id: db.countries.findOne({ name: "France" })._id },
-    { name: "Marseille", country_id: db.countries.findOne({ name: "France" })._id }
-]);
+db.cities.insertOne({ name: "Stockholm", country_id: db.countries.findOne({ name: "Sweden" })._id });
+db.cities.insertOne({ name: "Helsingborg", country_id: db.countries.findOne({ name: "Sweden" })._id });
+db.cities.insertOne({ name: "Uppsala", country_id: db.countries.findOne({ name: "Sweden" })._id });
+
+db.cities.insertOne({ name: "Berlin", country_id: db.countries.findOne({ name: "Germany" })._id });
+db.cities.insertOne({ name: "Frankfurt", country_id: db.countries.findOne({ name: "Germany" })._id });
+
+db.cities.insertOne({ name: "Paris", country_id: db.countries.findOne({ name: "France" })._id });
+db.cities.insertOne({ name: "Marseille", country_id: db.countries.findOne({ name: "France" })._id });
 
 // Insert employees with foreign keys using findOne
-db.employees.insertMany([
-    { name: "Alice Johnson", salary: 75000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id },
-    { name: "Bob Smith", salary: 60000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id },
-    { name: "Charlie Brown", salary: 70000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id },
-    { name: "David Wilson", salary: 85000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id },
-    { name: "Eva Adams", salary: 55000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id },
-    { name: "Frank White", salary: 65000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id },
-    { name: "Grace Lee", salary: 90000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id },
-    { name: "Henry Clark", salary: 72000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id },
-    { name: "Isabella Harris", salary: 80000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id },
-    { name: "James Martinez", salary: 67000, position_id: db.positions.findOne({ name: "Salary Manager" })._id, department_id: db.departments.findOne({ name: "Finance" })._id }
-]);
+db.employees.insertOne({ name: "Alice Johnson", salary: 75000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id });
+db.employees.insertOne({ name: "Bob Smith", salary: 60000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id });
+db.employees.insertOne({ name: "Charlie Brown", salary: 70000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id });
+db.employees.insertOne({ name: "David Wilson", salary: 85000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id });
+db.employees.insertOne({ name: "Eva Adams", salary: 55000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id });
+db.employees.insertOne({ name: "Frank White", salary: 65000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id });
+db.employees.insertOne({ name: "Grace Lee", salary: 90000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id });
+db.employees.insertOne({ name: "Henry Clark", salary: 72000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id });
+db.employees.insertOne({ name: "Isabella Harris", salary: 80000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id });
+db.employees.insertOne({ name: "James Martinez", salary: 67000, position_id: db.positions.findOne({ name: "Salary Manager" })._id, department_id: db.departments.findOne({ name: "Finance" })._id });
