@@ -1,0 +1,56 @@
+// Use the company database
+use company;
+
+// Insert countries
+db.countries.insertMany([
+    { name: "Denmark" },
+    { name: "Sweden" },
+    { name: "Germany" },
+    { name: "France" }
+]);
+
+// Insert departments
+db.departments.insertMany([
+    { name: "Finance" },
+    { name: "Engineering" },
+    { name: "Marketing" }
+]);
+
+// Insert positions
+db.positions.insertMany([
+    { name: "Software Engineer" },
+    { name: "Financial Analyst" },
+    { name: "Marketing Specialist" },
+    { name: "Salary Manager" }
+]);
+
+// Insert cities with country_id references using findOne
+db.cities.insertMany([
+    { name: "Copenhagen", country_id: db.countries.findOne({ name: "Denmark" })._id },
+    { name: "Aalborg", country_id: db.countries.findOne({ name: "Denmark" })._id },
+    { name: "Odense", country_id: db.countries.findOne({ name: "Denmark" })._id },
+    
+    { name: "Stockholm", country_id: db.countries.findOne({ name: "Sweden" })._id },
+    { name: "Helsingborg", country_id: db.countries.findOne({ name: "Sweden" })._id },
+    { name: "Uppsala", country_id: db.countries.findOne({ name: "Sweden" })._id },
+
+    { name: "Berlin", country_id: db.countries.findOne({ name: "Germany" })._id },
+    { name: "Frankfurt", country_id: db.countries.findOne({ name: "Germany" })._id },
+    
+    { name: "Paris", country_id: db.countries.findOne({ name: "France" })._id },
+    { name: "Marseille", country_id: db.countries.findOne({ name: "France" })._id }
+]);
+
+// Insert employees with foreign keys using findOne
+db.employees.insertMany([
+    { name: "Alice Johnson", salary: 75000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id },
+    { name: "Bob Smith", salary: 60000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id },
+    { name: "Charlie Brown", salary: 70000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id },
+    { name: "David Wilson", salary: 85000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id },
+    { name: "Eva Adams", salary: 55000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id },
+    { name: "Frank White", salary: 65000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id },
+    { name: "Grace Lee", salary: 90000, position_id: db.positions.findOne({ name: "Software Engineer" })._id, department_id: db.departments.findOne({ name: "Engineering" })._id },
+    { name: "Henry Clark", salary: 72000, position_id: db.positions.findOne({ name: "Financial Analyst" })._id, department_id: db.departments.findOne({ name: "Finance" })._id },
+    { name: "Isabella Harris", salary: 80000, position_id: db.positions.findOne({ name: "Marketing Specialist" })._id, department_id: db.departments.findOne({ name: "Marketing" })._id },
+    { name: "James Martinez", salary: 67000, position_id: db.positions.findOne({ name: "Salary Manager" })._id, department_id: db.departments.findOne({ name: "Finance" })._id }
+]);
