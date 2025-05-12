@@ -15,7 +15,7 @@
 
         async function init() {
             try {
-                await player.load("/playlist.mpd");
+                await player.load("https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd");
                 console.log("Shaka player loaded.");
             } catch (error) {
                 console.log("Error loading the manifest file", error);
