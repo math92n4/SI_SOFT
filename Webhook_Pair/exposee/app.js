@@ -180,7 +180,7 @@ app.get("/ping", async (req, res) => {
         const response = await fetch(webhook.url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ event: "ping", message: "Ping from server" }),
+          body: JSON.stringify({ url: webhook.url, events: webhook.events }),
         });
   
         results.push({ url: webhook.url, events: webhook.events });
@@ -189,7 +189,7 @@ app.get("/ping", async (req, res) => {
       }
     }
   
-    res.status(200).send({ data: results });
+    res.status(200).send({ data: "OK" });
   });
 
 app.post("/webhook", (req, res) => {
