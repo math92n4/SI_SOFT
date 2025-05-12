@@ -140,6 +140,37 @@ app.delete("/unsubscribe", (req, res) => {
     return res.status(200).send({ data: `Url: ${url} unsubscribed` });
 });
 
+/**
+ * @swagger
+ * /ping:
+ *   get:
+ *     summary: Ping all subscribed webhook URLs
+ *     description: Sends a test POST request to each subscribed webhook with a test message.
+ *     responses:
+ *       200:
+ *         description: Pings sent to all webhooks
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       url:
+ *                         type: string
+ *                         description: Webhook URL
+ *                       events:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                         description: Subscribed events (if successful)
+ *                       error:
+ *                         type: string
+ *                         description: Error message if the ping failed
+ */
 app.get("/ping", async (req, res) => {
     const webhooks = loadWebhooks();
     const results = [];
