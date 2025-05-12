@@ -2,6 +2,8 @@ import express from "express";
 import fs from "fs";
 import { fileURLToPath } from 'url';
 import path from 'path';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 const app = express();
 app.use(express.json());
@@ -27,6 +29,61 @@ const acceptedEvents = [
     "payment_completed"
 ]
 
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Webhook API',
+            version: '1.0.0',
+            description: 'API for subscribing and unsubscribing to webhooks',
+        },
+    },
+    apis: ['./app.js'],
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Subscription:
+ *       type: object
+ *       required:
+ *         - url
+ *         - events
+ *       properties:
+ *         url:
+ *           type: string
+ *           description: The URL to subscribe to
+ *         events:
+ *           type: array
+ *           items:
+ *             type: string
+ *             enum: [payment_recieved, payment_processed, invoice_processed, payment_completed]
+ *           description: List of events to subscribe to
+ */
+
+/**
+ * @swagger
+ * /subscribe:
+ *   post:
+ *     summary: Subscribe to webhook events
+ *     description: Creates a new subscription for the specified events and URL.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Subscription'
+ *     responses:
+ *       201:
+ *         description: Subscription created successfully
+ *       400:
+ *         description: Invalid payload or event
+ */
+
 app.post("/subscribe", (req, res) => {
     const { url, events } = req.body;
 
@@ -48,6 +105,27 @@ app.post("/subscribe", (req, res) => {
     res.status(201).send({ data: "Subscription created" });
 });
 
+
+/**
+ * @swagger
+ * /unsubscribe:
+ *   delete:
+ *     summary: Unsubscribe from webhook events
+ *     description: Removes a subscription based on the provided URL.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               url:
+ *                 type: string
+ *                 description: The URL to unsubscribe from
+ *     responses:
+ *       200:
+ *         description: Successfully unsubscribed
+ */
 app.delete("/unsubscribe", (req, res) => {
     const { url } = req.body;
     const webhooks = loadWebhooks();
@@ -64,24 +142,29 @@ app.delete("/unsubscribe", (req, res) => {
 
 app.get("/ping", async (req, res) => {
     const webhooks = loadWebhooks();
-
+    const results = [];
+  
     for (const webhook of webhooks) {
-        const events = webhook.events;
-
-        for (const event of events) {
-            await fetch(webhook.url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(event)
-            });
-        }
+      try {
+        const response = await fetch(webhook.url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ event: "ping", message: "Ping from server" }),
+        });
+  
+        results.push({ url: webhook.url, events: webhook.events });
+      } catch (err) {
+        results.push({ url: webhook.url, error: err.message });
+      }
     }
+  
+    res.status(200).send({ data: results });
+  });
 
-    res.send("Ping completed.");
-});
-
+app.post("/webhook", (req, res) => {
+    console.log(req.body);
+    res.send({ data: "Webhook called" })
+})
 
 const PORT = 8080;
 app.listen(PORT, () => console.log(`App listening on ${PORT}`));
