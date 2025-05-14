@@ -1,0 +1,25 @@
+Table departments {
+  id int [pk]
+  name varchar(100) [not null]
+}
+
+Table job_titles {
+  id int [pk]
+  title varchar(100) [not null]
+}
+
+Table employees {
+  id int [pk]
+  first_name varchar(100) [not null]
+  last_name varchar(100) [not null]
+  email varchar(100) [not null]
+  department_id int
+  job_title_id int
+  hire_date date
+  salary decimal(10, 2) [not null]
+}
+
+Ref: employees.department_id > departments.id
+Ref: employees.job_title_id > job_titles.id
+
+
