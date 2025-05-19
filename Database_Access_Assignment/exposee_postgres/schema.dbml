@@ -1,0 +1,28 @@
+Table countries {
+  id int [pk, increment]
+  name text [unique, not null]
+}
+
+Table departments {
+  id int [pk, increment]
+  name text [unique, not null]
+}
+
+Table positions {
+  id int [pk, increment]
+  name text [unique, not null]
+}
+
+Table cities {
+  id int [pk, increment]
+  name text [not null]
+  country_id int [ref: > countries.id]
+}
+
+Table employees {
+  id int [pk, increment]
+  name text [not null]
+  salary numeric(10, 2)
+  position_id int [ref: > positions.id]
+  department_id int [ref: > departments.id]
+}
