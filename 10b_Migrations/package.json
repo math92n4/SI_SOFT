@@ -1,0 +1,17 @@
+{
+  "name": "10b_migrations",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mysql2": "^3.14.1",
+    "pg": "^8.16.0"
+  }
+}
