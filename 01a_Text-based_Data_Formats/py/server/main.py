@@ -5,27 +5,27 @@ from parse import getCsv, getJson, getTxt, getXml, getYaml
 app = FastAPI()
 
 @app.get("/express/json")
-def json():
+def express_json():
     response = requests.get("http://localhost:8080/json")
     return response.json()
 
 @app.get("/express/csv")
-def json():
+def express_csv():
     response = requests.get("http://localhost:8080/csv")
     return response.json()
 
 @app.get("/express/yaml")
-def json():
+def express_yaml():
     response = requests.get("http://localhost:8080/yaml")
     return response.json()
 
 @app.get("/express/xml")
-def json():
+def express_xml():
     response = requests.get("http://localhost:8080/xml")
     return response.json()
 
 @app.get("/express/txt")
-def json():
+def express_txt():
     response = requests.get("http://localhost:8080/txt")
     return response.json()
 

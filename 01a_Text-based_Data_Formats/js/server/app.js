@@ -25,8 +25,8 @@ app.get("/txt", async (req, res) => {
     res.send({ "data": txt })
 })
 
-app.get("/yaml", (req, res) => {
-    const yaml = getYaml()
+app.get("/yaml", async (req, res) => {
+    const yaml = await getYaml()
     res.send({ "data": yaml })
 })
 

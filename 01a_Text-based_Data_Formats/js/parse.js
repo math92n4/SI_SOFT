@@ -1,5 +1,5 @@
 import fs from 'fs'
-const { promises: fsPromises } = fs
+import { promises as fsPromises } from 'fs';
 import csv from 'csv-parser'
 import { parseStringPromise } from "xml2js";
 import { fileURLToPath } from 'url';
@@ -81,8 +81,8 @@ export async function getTxt() {
 // YAML
 // https://www.npmjs.com/package/yaml
 
-export function getYaml() {
+export async function getYaml() {
     const filePath = path.join(__dirname, 'data', 'me.yaml')
-    const file = fs.readFileSync(filePath, 'utf-8')
+    const file = await fsPromises.readFile(filePath, 'utf-8')
     return YAML.parse(file)
 }

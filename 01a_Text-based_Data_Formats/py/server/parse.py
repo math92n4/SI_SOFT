@@ -11,7 +11,7 @@ class City:
 import json
 import os
 
-base_path = os.path.dirname(__file__)
+# base_path = os.path.dirname(__file__)
 
 def getJson():
     with open('../data/newyork.json') as f:
@@ -21,8 +21,8 @@ def getJson():
     
     return city
 
-jsonCity = getJson()
-print(jsonCity, "JSON")
+# jsonCity = getJson()
+# print(jsonCity, "JSON")
 
 
 # CSV
@@ -62,8 +62,8 @@ def getXml():
     return cityObj
 
 
-xmlCity = getXml()
-print(xmlCity, "XML")
+# xmlCity = getXml()
+# print(xmlCity, "XML")
 
 
 # TXT
@@ -84,8 +84,8 @@ def getTxt():
     
     return city
 
-txtCity = getTxt()
-print(txtCity, 'TXT')
+# txtCity = getTxt()
+# print(txtCity, 'TXT')
 
 
 
@@ -100,5 +100,5 @@ def getYaml():
         
         return city
 
-yamlCity = getYaml()
-print(yamlCity, 'YAML')
+# yamlCity = getYaml()
+# print(yamlCity, 'YAML')

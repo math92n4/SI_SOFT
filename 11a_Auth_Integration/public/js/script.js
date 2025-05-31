@@ -37,7 +37,7 @@ const updateUI = async () => {
 
     }
 };
-
+/*
 const login = async () => {
     await auth0Client.loginWithRedirect({
       authorizationParams: {
@@ -45,6 +45,16 @@ const login = async () => {
       }
     });
 };
+*/
+
+const login = async () => {
+  try {
+    await auth0Client.loginWithPopup();
+    updateUI();
+  } catch (error) {
+    console.error("Login failed", error);
+  }
+}
 
 const logout = () => {
     auth0Client.logout({
