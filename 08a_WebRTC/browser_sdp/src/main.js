@@ -12,22 +12,29 @@ const servers = {
     ]
 };
 
+// init function to get local media stream
 async function init() {
     localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
     document.getElementById("localVideo").srcObject = localStream;
 }
 
+// setup peer connection and handle SDP offer/answer
 async function createPeerConnection(sdpOfferTextAreaId) {
     peerConnection = new RTCPeerConnection(servers);
+
+    // MediaStream for the remote video
     remoteStream = new MediaStream();
     document.getElementById("remoteVideo").srcObject = remoteStream;
 
+    // add the local stream to the peer connection
     localStream.getTracks().forEach((track) => peerConnection.addTrack(track, localStream));
 
+    // handle incoming tracks
     peerConnection.ontrack = (event) => {
         event.streams[0].getTracks().forEach((track) => remoteStream.addTrack(track));
     };
 
+    // create an SDP offer when ice candidate is found
     peerConnection.onicecandidate = (event) => {
         if(event.candidate) {
             document.getElementById(sdpOfferTextAreaId).textContent = JSON.stringify(peerConnection.localDescription);
@@ -35,6 +42,7 @@ async function createPeerConnection(sdpOfferTextAreaId) {
     };
 }
 
+// start the connection from caller side
 async function createOffer() {
     if(!localStream) {
         return alert("Local stream is not ready");
@@ -74,3 +82,10 @@ init();
 document.getElementById("createOfferButton").addEventListener("click", createOffer);
 document.getElementById("createAnswerButton").addEventListener("click", createAnswer);
 document.getElementById("addAnswerButton").addEventListener("click", addAnswer);
+
+
+// BROWSER A -> CREATE OFFER
+// BROWSER B -> KOPIERER BROWSER As OFFER
+// BROWSER B -> CREATE ANSWER
+// BROWSER A -> KOPIERER BROWSER Bs ANSWER
+// BROWSER A -> ADD ANSWER
